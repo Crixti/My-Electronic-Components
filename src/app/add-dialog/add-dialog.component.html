@@ -10,11 +10,28 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Package</mat-label>
-    <input matInput [(ngModel)]="component.package" />
+    <input
+      matInput
+      [(ngModel)]="component.package"
+      [matAutocomplete]="auto"
+      [formControl]="packageAutocomplete.control"
+    />
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+      <mat-option
+        *ngFor="let package of packageAutocomplete.filteredValues | async"
+        [value]="package"
+      >
+        {{ package }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Category</mat-label>
-    <input matInput [(ngModel)]="component.category" />
+    <mat-select [(ngModel)]="component.category" name="category">
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Description</mat-label>
@@ -27,7 +44,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="component" cdkFocusInitial>
-    Save
-  </button>
+  <button mat-button (click)="onYesClick()" cdkFocusInitial>Save</button>
 </div>
