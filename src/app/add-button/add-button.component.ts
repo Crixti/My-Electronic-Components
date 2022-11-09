@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { DatabaseService, ECCategory } from '../firebase/database.service';
-import { v4 as uuidv4 } from 'uuid';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDialogComponent } from '../add-dialog/add-dialog.component';
+import { DatabaseService } from '../firebase/database.service';
 
 @Component({
   selector: 'add-button',
@@ -9,24 +10,24 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class AddButtonComponent {
   isOver = false;
-  _service: DatabaseService;
 
-  constructor(service: DatabaseService) {
-    console.log('AddButton');
-    this._service = service;
-  }
+  constructor(private service: DatabaseService, private dialog: MatDialog) {}
 
   onClick() {
-    console.log('button clicked!');
-    this._service.addComponent({
-      id: uuidv4(),
-      position: 1,
-      name: 'TC4058A',
-      count: 10,
-      package: 'Module',
-      category: ECCategory.ADAPTER,
-      description: 'Linear Li-Ion Battery Charger',
-      link: 'https://datasheetspdf.com/pdf-file/997083/Linear/LTC4058-4.2/1',
+    const dialogRef = this.dialog.open(AddDialogComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result:', result);
     });
+    // console.log('button clicked!');
+    // this.service.addComponent({
+    //   id: uuidv4(),
+    //   position: 1,
+    //   name: 'TC4058A',
+    //   count: 10,
+    //   package: 'Module',
+    //   category: ECCategory.ADAPTER,
+    //   description: 'Linear Li-Ion Battery Charger',
+    //   link: 'https://datasheetspdf.com/pdf-file/997083/Linear/LTC4058-4.2/1',
+    // });
   }
 }

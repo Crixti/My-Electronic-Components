@@ -2,25 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+
+import { AppFirebaseModule } from './firebase/firebase.module';
+import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { AddButtonComponent } from './add-button/add-button.component';
+import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { HelloComponent } from './hello.component';
 import { ImportExcelButtonComponent } from './import-excel-button/import-excel-button.component';
 import { MTableComponent } from './mtable/mtable.component';
 
 import { ExcelService } from './excel.service';
-
-import { AppFirebaseModule } from './firebase/firebase.module';
 
 @NgModule({
   imports: [
@@ -28,19 +21,12 @@ import { AppFirebaseModule } from './firebase/firebase.module';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSortModule,
-    MatTableModule,
+    MaterialModule,
     ReactiveFormsModule,
   ],
   declarations: [
     AddButtonComponent,
+    AddDialogComponent,
     AppComponent,
     HelloComponent,
     ImportExcelButtonComponent,

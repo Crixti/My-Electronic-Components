@@ -31,15 +31,12 @@ export interface ElectronicComponent {
 
 @Injectable()
 export class DatabaseService {
-  _database: Database;
-
-  constructor(database: Database) {
+  constructor(private database: Database) {
     console.log('database: ' + database);
-    this._database = database;
   }
 
   getComponents(): Observable<ElectronicComponent[]> {
-    const doc = ref(this._database, 'components');
+    const doc = ref(this.database, 'components');
     const listVal = objectVal(doc).pipe(
       map((obj) => {
         return (<any>Object).entries(obj).map(([_, value]) => value);
@@ -50,12 +47,12 @@ export class DatabaseService {
   }
 
   addComponent(component: ElectronicComponent) {
-    set(ref(this._database, 'components/' + component.id), component);
+    set(ref(this.database, 'components/' + component.id), component);
   }
 
   addComponents(components: ElectronicComponent[]) {
     components.forEach((component) => {
-      set(ref(this._database, 'components/' + component.id), component);
+      set(ref(this.database, 'components/' + component.id), component);
     });
   }
 }

@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="component.name" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Count</mat-label>
+    <input matInput [(ngModel)]="component.count" type="number" min="" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Package</mat-label>
+    <input matInput [(ngModel)]="component.package" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Category</mat-label>
+    <input matInput [(ngModel)]="component.category" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="component.description" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Link</mat-label>
+    <input matInput [(ngModel)]="component.link" type="url" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="component" cdkFocusInitial>
+    Save
+  </button>
+</div>
