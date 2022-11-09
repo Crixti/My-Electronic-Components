@@ -1,0 +1,18 @@
+<div class="container">
+  <input
+    type="file"
+    style="display: none"
+    #fileInput
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+    (change)="onChangeFileInput()"
+  />
+  <button
+    mat-raised-button
+    color="primary"
+    class="file-select-button"
+    (click)="onClickFileInputButton()"
+  >
+    <mat-icon>upload</mat-icon>
+    Import Excel
+  </button>
+</div>
