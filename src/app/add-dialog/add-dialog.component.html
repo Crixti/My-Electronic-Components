@@ -2,11 +2,14 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="component.name" />
+    <input matInput [(ngModel)]="component.name" [formControl]="nameControl" />
+    <mat-error *ngIf="nameControl.hasError('required')">
+      Name cannot be empty.
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Count</mat-label>
-    <input matInput [(ngModel)]="component.count" type="number" min="" />
+    <input matInput [(ngModel)]="component.count" type="number" min="1" />
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Package</mat-label>
@@ -27,11 +30,18 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Category</mat-label>
-    <mat-select [(ngModel)]="component.category" name="category">
+    <mat-select
+      [(ngModel)]="component.category"
+      name="category"
+      [formControl]="categoryControl"
+    >
       <mat-option *ngFor="let category of categories" [value]="category">
         {{ category }}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="categoryControl.hasError('required')">
+      Category cannot be empty.
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Description</mat-label>
@@ -44,5 +54,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onYesClick()" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onYesClick()" [disabled]="!yesEnabled">
+    Save
+  </button>
 </div>

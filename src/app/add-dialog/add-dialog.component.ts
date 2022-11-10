@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ECCategory, ElectronicComponent } from '../firebase/database.service';
-import { v4 as uuidv4 } from 'uuid';
 import { AutocompleteHandler } from '../autocomplete';
+import { ECCategory, ElectronicComponent } from '../firebase/database.service';
+import { combineLatestWith } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-add-dialog',
@@ -53,6 +55,10 @@ export class AddDialogComponent implements OnInit {
     'TO-274',
   ]);
 
+  nameControl = new FormControl('', [Validators.required]);
+  categoryControl = new FormControl('', [Validators.required]);
+  yesEnabled = false;
+
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public component: ElectronicComponent
@@ -75,7 +81,20 @@ export class AddDialogComponent implements OnInit {
     }
   }
 
+  ngOnInit() {
+    this.packageAutocomplete.init();
+    this.nameControl.statusChanges
+      .pipe(combineLatestWith(this.categoryControl.statusChanges))
+      .subscribe(() => {
+        this.yesEnabled = !this.hasError();
+      });
+  }
+
   onYesClick(): void {
+    if (this.hasError()) {
+      return;
+    }
+
     this.dialogRef.close(this.component);
   }
 
@@ -83,7 +102,7 @@ export class AddDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {
-    this.packageAutocomplete.init();
+  private hasError() {
+    return this.nameControl.invalid || this.categoryControl.invalid;
   }
 }
