@@ -1,7 +1,9 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, SortDirection } from '@angular/material/sort';
+import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 import {
   DatabaseService,
   ElectronicComponent,
@@ -21,6 +23,7 @@ export class MTableComponent implements AfterViewInit {
     'category',
     'description',
     'link',
+    'action',
   ];
   dataSource = new MatTableDataSource<ElectronicComponent>();
 
@@ -28,8 +31,8 @@ export class MTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(service: DatabaseService) {
-    console.log('aaa');
+  constructor(service: DatabaseService, private dialog: MatDialog) {
+    console.log('MTableComponent');
     service.getComponents().subscribe((list) => {
       console.log('on list: ', list);
       this.isLoadingResults = false;
@@ -47,5 +50,17 @@ export class MTableComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     this.paginator.firstPage();
+  }
+
+  editComponent(component, i) {
+    console.log('editComponent', i, component);
+    const dialogRef = this.dialog.open(AddDialogComponent, { data: component });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result:', result);
+    });
+  }
+
+  deleteComponent(component, i) {
+    console.log('deleteComponent', i, component);
   }
 }

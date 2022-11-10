@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./add-dialog.component.css'],
 })
 export class AddDialogComponent implements OnInit {
-  title = 'Edit Component';
+  title = 'Add Component';
   categories = [
     ECCategory.ADAPTER,
     ECCategory.ADC,
@@ -29,55 +29,60 @@ export class AddDialogComponent implements OnInit {
     ECCategory.TRANSISTOR,
   ];
 
-  packageAutocomplete = new AutocompleteHandler([
-    'SIP',
-    'DIP',
-    'CDIP',
-    'QIP',
-    'SOP',
-    'TO-3',
-    'TO-5',
-    'TO-18',
-    'TO-39',
-    'TO-46',
-    'TO-66',
-    'TO-92',
-    'TO-99',
-    'TO-100',
-    'TO-126',
-    'TO-220',
-    'TO-226',
-    'TO-247',
-    'TO-251',
-    'TO-252',
-    'TO-262',
-    'TO-263',
-    'TO-274',
-  ]);
-
+  private uuid = uuidv4();
+  private position = 0;
   nameControl = new FormControl('', [Validators.required]);
-  categoryControl = new FormControl('', [Validators.required]);
+  countControl = new FormControl(1);
+  packageControl = new FormControl('');
+  categoryControl = new FormControl(undefined, [Validators.required]);
+  descriptionControl = new FormControl('');
+  linkControl = new FormControl('');
   yesEnabled = false;
+
+  packageAutocomplete = new AutocompleteHandler(
+    [
+      'SIP',
+      'DIP',
+      'CDIP',
+      'QIP',
+      'SOP',
+      'TO-3',
+      'TO-5',
+      'TO-18',
+      'TO-39',
+      'TO-46',
+      'TO-66',
+      'TO-92',
+      'TO-99',
+      'TO-100',
+      'TO-126',
+      'TO-220',
+      'TO-226',
+      'TO-247',
+      'TO-251',
+      'TO-252',
+      'TO-262',
+      'TO-263',
+      'TO-274',
+    ],
+    this.packageControl
+  );
 
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public component: ElectronicComponent
+    @Inject(MAT_DIALOG_DATA) component: ElectronicComponent
   ) {
     if (component) {
+      this.title = 'Edit Component';
       console.log('component:', component);
-    } else {
-      this.title = 'Add Component';
-      console.log('no component');
-      this.component = {
-        id: uuidv4(),
-        position: 1,
-        name: '',
-        count: 1,
-        package: '',
-        category: undefined,
-        description: '',
-        link: '',
-      };
+      this.uuid = component.id;
+      this.position = component.position;
+      this.nameControl.setValue(component.name);
+      this.countControl.setValue(component.count);
+      this.packageControl.setValue(component.package);
+      this.categoryControl.setValue(component.category);
+      this.descriptionControl.setValue(component.description);
+      this.linkControl.setValue(component.link);
     }
   }
 
@@ -95,7 +100,16 @@ export class AddDialogComponent implements OnInit {
       return;
     }
 
-    this.dialogRef.close(this.component);
+    this.dialogRef.close({
+      id: this.uuid,
+      position: this.position,
+      name: this.nameControl.value,
+      count: this.countControl.value,
+      package: this.packageControl.value,
+      category: this.categoryControl.value,
+      description: this.descriptionControl.value,
+      link: this.linkControl.value,
+    });
   }
 
   onNoClick(): void {

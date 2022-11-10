@@ -2,23 +2,18 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="component.name" [formControl]="nameControl" />
+    <input matInput [formControl]="nameControl" />
     <mat-error *ngIf="nameControl.hasError('required')">
       Name cannot be empty.
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Count</mat-label>
-    <input matInput [(ngModel)]="component.count" type="number" min="1" />
+    <input matInput [formControl]="countControl" type="number" min="1" />
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Package</mat-label>
-    <input
-      matInput
-      [(ngModel)]="component.package"
-      [matAutocomplete]="auto"
-      [formControl]="packageAutocomplete.control"
-    />
+    <input matInput [matAutocomplete]="auto" [formControl]="packageControl" />
     <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
       <mat-option
         *ngFor="let package of packageAutocomplete.filteredValues | async"
@@ -30,11 +25,7 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Category</mat-label>
-    <mat-select
-      [(ngModel)]="component.category"
-      name="category"
-      [formControl]="categoryControl"
-    >
+    <mat-select name="category" [formControl]="categoryControl">
       <mat-option *ngFor="let category of categories" [value]="category">
         {{ category }}
       </mat-option>
@@ -45,11 +36,11 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Description</mat-label>
-    <input matInput [(ngModel)]="component.description" />
+    <input matInput [formControl]="descriptionControl" />
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Link</mat-label>
-    <input matInput [(ngModel)]="component.link" type="url" />
+    <input matInput [formControl]="linkControl" type="url" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
