@@ -17,7 +17,7 @@ export class AddButtonComponent {
   onClick() {
     const dialogRef = this.dialog.open(AddDialogComponent, {});
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('result:', result);
+      console.log('add-dialog-result:', result);
       if (result) {
         this.add(result);
       }

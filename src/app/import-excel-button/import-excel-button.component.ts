@@ -30,7 +30,7 @@ export class ImportExcelButtonComponent {
 
     this.excel.parse(file).subscribe((data) => {
       console.log('result: ', data);
-      this.database.addComponents(data);
+      this.database.saveComponents(data);
       console.log('result2: ', data);
     });
   }

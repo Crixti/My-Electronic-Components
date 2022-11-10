@@ -160,7 +160,7 @@ export class AddDialogComponent implements OnInit {
       Are you sure you want to delete this component?
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button mat-dialog-close>No</button>
+      <button mat-button mat-dialog-close="false">No</button>
       <button mat-button mat-dialog-close="true">Yes</button>
     </mat-dialog-actions>
   `,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, objectVal, list, ref, set } from '@angular/fire/database';
+import { Database, objectVal, remove, ref, set } from '@angular/fire/database';
 import { Observable, map } from 'rxjs';
 
 export enum ECCategory {
@@ -50,9 +50,13 @@ export class DatabaseService {
     set(ref(this.database, 'components/' + component.id), component);
   }
 
-  addComponents(components: ElectronicComponent[]) {
+  saveComponents(components: ElectronicComponent[]) {
     components.forEach((component) => {
       set(ref(this.database, 'components/' + component.id), component);
     });
+  }
+
+  deleteComponent(id: string) {
+    remove(ref(this.database, 'components/' + id));
   }
 }

@@ -59,7 +59,7 @@ export class MTableComponent implements AfterViewInit {
     console.log('editComponent', i, component);
     const dialogRef = this.dialog.open(AddDialogComponent, { data: component });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('result:', result);
+      console.log('edit-dialog-result:', result);
       if (result) {
         this.service.saveComponent(result);
       }
@@ -72,6 +72,9 @@ export class MTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       console.log('delete-dialog-result:', result);
+      if (result) {
+        this.service.deleteComponent(result.id);
+      }
     });
   }
 }
