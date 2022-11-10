@@ -73,7 +73,7 @@ export class MTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('delete-dialog-result:', result);
       if (result) {
-        this.service.deleteComponent(result.id);
+        this.service.deleteComponent(component.id);
       }
     });
   }

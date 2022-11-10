@@ -58,5 +58,6 @@ export class DatabaseService {
 
   deleteComponent(id: string) {
     remove(ref(this.database, 'components/' + id));
+    // set(ref(this.database, 'components/' + id), null);
   }
 }
