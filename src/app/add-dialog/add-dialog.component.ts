@@ -7,7 +7,7 @@ import { combineLatestWith } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
-  selector: 'app-add-dialog',
+  selector: 'add-dialog',
   templateUrl: './add-dialog.component.html',
   styleUrls: ['./add-dialog.component.css'],
 })
@@ -152,3 +152,17 @@ export class AddDialogComponent implements OnInit {
     return this.nameControl.invalid || this.categoryControl.invalid;
   }
 }
+
+@Component({
+  selector: 'delete-dialog',
+  template: `
+    <mat-dialog-content>
+      Are you sure you want to delete this component?
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>No</button>
+      <button mat-button mat-dialog-close="true">Yes</button>
+    </mat-dialog-actions>
+  `,
+})
+export class DeleteDialogComponent {}

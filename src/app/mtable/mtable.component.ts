@@ -3,7 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddDialogComponent } from '../add-dialog/add-dialog.component';
+import {
+  AddDialogComponent,
+  DeleteDialogComponent,
+} from '../add-dialog/add-dialog.component';
 import {
   DatabaseService,
   ElectronicComponent,
@@ -66,6 +69,9 @@ export class MTableComponent implements AfterViewInit {
   deleteComponent(component, i) {
     console.log('deleteComponent', i, component);
 
-    const dialogRef = this.dialog.open(AddDialogComponent, { data: component });
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('delete-dialog-result:', result);
+    });
   }
 }
