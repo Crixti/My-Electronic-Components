@@ -46,7 +46,7 @@ export class DatabaseService {
     return listVal;
   }
 
-  addComponent(component: ElectronicComponent) {
+  saveComponent(component: ElectronicComponent) {
     set(ref(this.database, 'components/' + component.id), component);
   }
 

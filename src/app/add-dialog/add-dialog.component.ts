@@ -37,6 +37,11 @@ export class AddDialogComponent implements OnInit {
   categoryControl = new FormControl(undefined, [Validators.required]);
   descriptionControl = new FormControl('');
   linkControl = new FormControl('');
+  // controls = new Map<string, FormControl>([
+  //   ['name', new FormControl('', [Validators.required])],
+  //   ['category', new FormControl('', [Validators.required])],
+  //   ['package', new FormControl('')],
+  // ]);
   yesEnabled = false;
 
   packageAutocomplete = new AutocompleteHandler(
@@ -74,7 +79,7 @@ export class AddDialogComponent implements OnInit {
   ) {
     if (component) {
       this.title = 'Edit Component';
-      console.log('component:', component);
+
       this.uuid = component.id;
       this.position = component.position;
       this.nameControl.setValue(component.name);
@@ -83,16 +88,43 @@ export class AddDialogComponent implements OnInit {
       this.categoryControl.setValue(component.category);
       this.descriptionControl.setValue(component.description);
       this.linkControl.setValue(component.link);
+      // } else {
+      // this.title = 'Add Component';
+      // component = {
+      //   id: this.uuid,
+      //   position: this.position,
+      //   name: this.nameControl.value,
+      //   count: this.countControl.value,
+      //   package: this.packageControl.value,
+      //   category: this.categoryControl.value,
+      //   description: this.descriptionControl.value,
+      //   link: this.linkControl.value,
+      // };
     }
+
+    // Object.keys(component).forEach((key) => {
+    //   const value = component[key];
+    //   console.log('controls: ', key, this.controls.has(key));
+    //   if (this.controls.has(key)) {
+    //     this.controls.get(key).setValue(value);
+    //   } else {
+    //     this.controls[key] = new FormControl(value);
+    //   }
+    // });
+    // console.log('controls', this.controls);
   }
 
   ngOnInit() {
     this.packageAutocomplete.init();
     this.nameControl.statusChanges
       .pipe(combineLatestWith(this.categoryControl.statusChanges))
-      .subscribe(() => {
+      .subscribe(([a, b]) => {
+        console.log('status', a, b);
         this.yesEnabled = !this.hasError();
       });
+
+    this.nameControl.updateValueAndValidity();
+    this.categoryControl.updateValueAndValidity();
   }
 
   onYesClick(): void {

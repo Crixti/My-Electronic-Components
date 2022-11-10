@@ -31,7 +31,7 @@ export class MTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(service: DatabaseService, private dialog: MatDialog) {
+  constructor(private service: DatabaseService, private dialog: MatDialog) {
     console.log('MTableComponent');
     service.getComponents().subscribe((list) => {
       console.log('on list: ', list);
@@ -57,10 +57,15 @@ export class MTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(AddDialogComponent, { data: component });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('result:', result);
+      if (result) {
+        this.service.saveComponent(result);
+      }
     });
   }
 
   deleteComponent(component, i) {
     console.log('deleteComponent', i, component);
+
+    const dialogRef = this.dialog.open(AddDialogComponent, { data: component });
   }
 }
