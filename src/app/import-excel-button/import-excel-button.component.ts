@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ExcelService } from '../excel.service';
+import { ExcelService } from './excel.service';
 import { DatabaseService } from '../firebase/database.service';
 
 @Component({

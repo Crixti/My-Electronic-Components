@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import xlsxParser from 'xls-parser';
 import { v4 as uuidv4 } from 'uuid';
 import { from, map, Observable } from 'rxjs';
-import { ElectronicComponent } from './firebase/database.service';
+import { ElectronicComponent } from '../firebase/database.service';
 
 @Injectable()
 export class ExcelService {
