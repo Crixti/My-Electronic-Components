@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+// import { RouterModule } from '@angular/router';
 
 import { AppFirebaseModule } from './firebase/firebase.module';
 import { MaterialModule } from './material.module';
@@ -29,11 +29,11 @@ import { ExcelService } from './import-excel-button/excel.service';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: 'login', component: LoginComponent },
-      { path: 'content', component: ContentComponent },
-      { path: '', redirectTo: '/content', pathMatch: 'full' },
-    ]),
+    // RouterModule.forRoot([
+    //   { path: 'login', component: LoginComponent },
+    //   { path: 'content', component: ContentComponent },
+    //   { path: '', redirectTo: '/content', pathMatch: 'full' },
+    // ]),
   ],
   declarations: [
     AddButtonComponent,

@@ -1,3 +1,16 @@
 p {
   font-family: Lato;
 }
+
+.inlined-element {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.user-name {
+  display: inline-block;
+}
+
+.float-right {
+  float:right;
+}

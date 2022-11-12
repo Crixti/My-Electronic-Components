@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<div>
+  <div *ngIf="user; else elseBlock">
+    <div class="user-name mat-title">Hi, {{user.displayName}}</div>
+    <div class="float-right">
+      <import-excel-button class="inlined-element"></import-excel-button>
+      <button mat-stroked-button (click)="logout()" class="inlined-element">Logout</button>
+    </div>
+    <mtable></mtable>
+    <add-button></add-button>
+  </div>
+  <ng-template #elseBlock>
+    <button mat-stroked-button (click)="login()">Login</button>
+  </ng-template>
+</div>

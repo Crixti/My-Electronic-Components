@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs';
+import { first, mergeMap } from 'rxjs';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 import { DatabaseService } from '../firebase/database.service';
 
@@ -27,11 +27,19 @@ export class AddButtonComponent {
   private add(component) {
     this.service
       .getComponents()
-      .pipe(first())
-      .subscribe((components) => {
-        const maxPosition = Math.max(...components.map((o) => o.position));
-        component.position = maxPosition + 1;
-        this.service.saveComponent(component);
+      .pipe(
+        first(),
+        mergeMap(components => {
+          var maxPosition = 0;
+          if (components && components.length > 0) {
+            maxPosition = Math.max(...components.map((o) => o.position));
+          }
+          component.position = maxPosition + 1;
+          return this.service.saveComponent(component)
+        })
+      ).subscribe({
+        next: () => console.log('add success'),
+        error: (e) => console.error('add error', e)
       });
   }
 }

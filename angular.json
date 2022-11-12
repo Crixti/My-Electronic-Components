@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "ecomponents": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo",
+            "outputPath": "dist/ecomponents",
             "index": "src/index.html",
             "main": "src/main.ts",
             "inlineStyleLanguage": "scss",
@@ -31,6 +31,15 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -41,7 +50,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -53,18 +61,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "ecomponents:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "ecomponents:build:development"
+            },
             "production": {
-              "browserTarget": "demo:build:production"
+              "browserTarget": "ecomponents:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "ecomponents:build"
           }
         },
         "test": {
@@ -90,5 +101,8 @@
       }
     }
   },
-  "defaultProject": "demo"
+  "defaultProject": "ecomponents",
+  "cli": {
+    "analytics": "37257b5e-d41a-499c-8e47-b5c104abb6ee"
+  }
 }
