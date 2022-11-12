@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ExcelService } from './excel.service';
 import { DatabaseService } from '../firebase/database.service';
 import { map, mergeMap } from 'rxjs';
+import { FirestoreService } from '../firebase/firestore.service';
 
 @Component({
   selector: 'import-excel-button',
@@ -11,13 +12,12 @@ import { map, mergeMap } from 'rxjs';
 export class ImportExcelButtonComponent {
   @ViewChild('fileInput')
   fileInput: ElementRef;
-  private database: DatabaseService;
-  private excel: ExcelService;
 
-  constructor(excel: ExcelService, database: DatabaseService) {
-    this.database = database;
-    this.excel = excel;
-  }
+  constructor(
+    private excel: ExcelService,
+    private database: DatabaseService,
+    private firestore: FirestoreService,
+  ) {}
 
   onClickFileInputButton(): void {
     this.fileInput.nativeElement.click();
@@ -33,5 +33,12 @@ export class ImportExcelButtonComponent {
         next: () => console.log('import success'),
         error: (e) => console.error('import error', e)
       });
+
+    // this.excel.parse(file)
+    //   .pipe(mergeMap(components => this.firestore.addComponents(components)))
+    //   .subscribe({
+    //     next: () => console.log('import success2'),
+    //     error: (e) => console.error('import error2', e)
+    //   });
   }
 }

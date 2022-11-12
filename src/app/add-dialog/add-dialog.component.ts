@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AutocompleteHandler } from '../autocomplete';
-import { ECCategory, ElectronicComponent } from '../firebase/database.service';
+import { ECCategory, ElectronicComponent } from '../models';
 import { combineLatestWith } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 

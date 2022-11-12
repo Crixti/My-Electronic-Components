@@ -1,34 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Database, objectVal, remove, ref, set } from '@angular/fire/database';
-import { Observable, map, mergeMap, of, from, merge, mergeAll, first } from 'rxjs';
+import { Observable, map, mergeMap, of, from, mergeAll, first } from 'rxjs';
+import { ElectronicComponent } from '../models';
 import { AuthenticationService } from './authentication.service';
-
-export enum ECCategory {
-  ADAPTER = 'Adapter',
-  ADC = 'ADC',
-  CONNECTOR = 'Connector',
-  EEPROM = 'EEPROM',
-  IC = 'IC',
-  MICROCONTROLLER = 'Microcontroller',
-  MISC = 'Misc',
-  MODULE = 'Module',
-  PASSIVE = 'Passive Component',
-  REGULATOR = 'Regulator',
-  REGULATOR_IC = 'Regulator IC',
-  SENSOR = 'Sensor',
-  TRANSISTOR = 'Transistor',
-}
-
-export interface ElectronicComponent {
-  id: string;
-  position: number;
-  name: string;
-  count: number;
-  package: string;
-  category: ECCategory;
-  description: string;
-  link: string;
-}
 
 @Injectable()
 export class DatabaseService {
@@ -73,7 +47,7 @@ export class DatabaseService {
         if(user !== null) {
           return of(...components).pipe(
             map(component => this.setComponentForUid(user.uid, component)),
-            mergeAll()
+            mergeAll(),
           );
         } else {
           return of();

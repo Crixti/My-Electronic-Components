@@ -7,10 +7,9 @@ import {
   AddDialogComponent,
   DeleteDialogComponent,
 } from '../add-dialog/add-dialog.component';
-import {
-  DatabaseService,
-  ElectronicComponent,
-} from '../firebase/database.service';
+import { DatabaseService } from '../firebase/database.service';
+import { FirestoreService } from '../firebase/firestore.service';
+import { ElectronicComponent } from '../models';
 
 @Component({
   selector: 'mtable',
@@ -34,13 +33,20 @@ export class MTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: DatabaseService, private dialog: MatDialog) {
+  constructor(
+    private database: DatabaseService,
+    private firestore: FirestoreService,
+    private dialog: MatDialog,
+    ) {
     console.log('MTableComponent');
-    service.getComponents().subscribe((list) => {
+    database.getComponents().subscribe(list => {
       console.log('on list: ', list);
       this.isLoadingResults = false;
       this.dataSource.data = list.sort((a, b) => a.position - b.position);
     });
+    // firestore.getComponents().subscribe(list => {
+    //   console.log('on list2: ', list);
+    // });
   }
 
   ngAfterViewInit() {
@@ -61,7 +67,7 @@ export class MTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('edit-dialog-result:', result);
       if (result) {
-        this.service.saveComponent(result).subscribe({
+        this.database.saveComponent(result).subscribe({
           next: () => console.log('save success'),
           error: (e) => console.error('save error', e)
         });
@@ -76,7 +82,7 @@ export class MTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('delete-dialog-result:', result);
       if (result) {
-        this.service.deleteComponent(component.id).subscribe({
+        this.database.deleteComponent(component.id).subscribe({
           next: () => console.log('delete success'),
           error: (e) => console.error('delete error', e)
         });
