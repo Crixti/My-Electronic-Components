@@ -1,12 +1,7 @@
-<button
-  mat-fab
-  color="primary"
-  class="menu-button"
-  (click)="onClick()"
-  [class.mat-elevation-z2]="!isOver"
-  [class.mat-elevation-z8]="isOver"
-  (mouseover)="isOver = true"
-  (mouseleave)="isOver = false"
->
-  <mat-icon>add</mat-icon>
-</button>
+<div [@animateVisibility]="isHidden ? 'hidden' : 'visible'">
+  <button mat-fab color="primary" class="menu-button" (click)="onClick()"
+    [class.mat-elevation-z2]="!isOver" [class.mat-elevation-z8]="isOver"
+    (mouseover)="isOver = true" (mouseleave)="isOver = false">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

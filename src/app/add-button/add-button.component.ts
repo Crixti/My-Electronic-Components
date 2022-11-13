@@ -1,18 +1,48 @@
-import { Component } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { first, mergeMap } from 'rxjs';
+import { debounceTime, first, fromEvent, mergeMap, Subscription } from 'rxjs';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 import { DatabaseService } from '../firebase/database.service';
+import { ElectronicComponent } from '../models';
 
 @Component({
   selector: 'add-button',
   templateUrl: './add-button.component.html',
   styleUrls: ['./add-button.component.css'],
+  animations: [
+    trigger('animateVisibility', [
+      state('visible', style({
+        opacity: 1,
+        display: 'default',
+      })),
+      state('hidden', style({
+        opacity: 0,
+        display: 'none',
+      })),
+      transition('* => *', [
+        style({display: 'default',}),
+        animate('200ms ease')
+      ]),
+    ]),
+  ],
 })
-export class AddButtonComponent {
+export class AddButtonComponent implements OnInit, OnDestroy {
   isOver = false;
+  isHidden = false;
+  private scroller: Subscription;
 
   constructor(private service: DatabaseService, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(debounceTime(100))
+      .subscribe(() => this.dealWithScroll(window.scrollY));
+  }
+
+  ngOnDestroy(): void {
+    this.scroller.unsubscribe();
+  }
 
   onClick() {
     const dialogRef = this.dialog.open(AddDialogComponent, {});
@@ -24,7 +54,11 @@ export class AddButtonComponent {
     });
   }
 
-  private add(component) {
+  private dealWithScroll(y: number) {
+    this.isHidden = y >= 100;
+  }
+
+  private add(component: ElectronicComponent) {
     this.service
       .getComponents()
       .pipe(
