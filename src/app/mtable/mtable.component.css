@@ -32,3 +32,12 @@ table {
   align-items: center;
   justify-content: center;
 }
+
+.mtable-header {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}

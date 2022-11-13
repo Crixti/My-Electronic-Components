@@ -20,6 +20,7 @@ import { ImportExcelButtonComponent } from './import-excel-button/import-excel-b
 import { MTableComponent } from './mtable/mtable.component';
 
 import { ExcelService } from './import-excel-button/excel.service';
+import { MFilterComponent } from './mfilter/mfilter.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { ExcelService } from './import-excel-button/excel.service';
     DeleteDialogComponent,
     ImportExcelButtonComponent,
     LoginComponent,
+    MFilterComponent,
     MTableComponent,
   ],
   providers: [ExcelService],

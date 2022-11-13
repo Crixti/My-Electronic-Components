@@ -1,0 +1,13 @@
+<mat-form-field appearance="standard">
+    <mat-label>Filter components</mat-label>
+    <input matInput [formControl]="filterControl" (keyup)="_applyFilter()" placeholder="Ex. Regulator" />
+</mat-form-field>
+<mat-form-field appearance="standard" style="margin-left: 8px;">
+    <mat-label>Category</mat-label>
+    <mat-select name="category" [formControl]="categoryControl" (selectionChange)="_applyFilter()">
+        <mat-option>--None--</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

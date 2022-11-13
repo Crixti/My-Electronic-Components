@@ -1,15 +1,27 @@
 <!-- <router-outlet></router-outlet> -->
-<div>
-  <div *ngIf="user; else elseBlock">
-    <div class="user-name mat-title">Hi, {{user.displayName}}</div>
-    <div class="float-right">
-      <import-excel-button class="inlined-element"></import-excel-button>
-      <button mat-stroked-button (click)="logout()" class="inlined-element">Logout</button>
+
+<div *ngIf="!isLoading; else elseBlock1">
+  <div *ngIf="user; else elseBlock2">
+    <mat-toolbar color="primary">
+      <span>Hi, {{user.displayName}}</span>
+      <span class="mtoolbar-spacer"></span>
+      <!-- <import-excel-button></import-excel-button> -->
+      <button mat-flat-button color="warn" class="logout-button" (click)="logout()">Logout</button>
+    </mat-toolbar>
+    <div class="main-content">
+      <mtable></mtable>
+      <add-button></add-button>
     </div>
-    <mtable></mtable>
-    <add-button></add-button>
   </div>
-  <ng-template #elseBlock>
-    <button mat-stroked-button (click)="login()">Login</button>
+  <ng-template #elseBlock2>
+    <div class="main-content">
+      <p>Please login to access your components.</p>
+      <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </div>
   </ng-template>
 </div>
+<ng-template #elseBlock1>
+  <div class="mat-loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

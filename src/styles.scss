@@ -2,10 +2,14 @@
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
-  padding: 30px;
+  padding: 0px;
 }
 
 html,
 body {
   height: 100%;
+}
+
+.mtoolbar-spacer {
+  flex: 1 1 auto;
 }

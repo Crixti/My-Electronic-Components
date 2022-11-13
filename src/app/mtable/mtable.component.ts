@@ -1,4 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,8 +9,9 @@ import {
   DeleteDialogComponent,
 } from '../add-dialog/add-dialog.component';
 import { DatabaseService } from '../firebase/database.service';
-import { FirestoreService } from '../firebase/firestore.service';
-import { ElectronicComponent } from '../models';
+import { FilterData } from '../mfilter/mfilter.component';
+// import { FirestoreService } from '../firebase/firestore.service';
+import { ECCategory, ElectronicComponent } from '../models';
 
 @Component({
   selector: 'mtable',
@@ -28,6 +30,24 @@ export class MTableComponent implements AfterViewInit {
     'action',
   ];
   dataSource = new MatTableDataSource<ElectronicComponent>();
+  
+  categories = [
+    ECCategory.ADAPTER,
+    ECCategory.ADC,
+    ECCategory.CONNECTOR,
+    ECCategory.EEPROM,
+    ECCategory.IC,
+    ECCategory.MICROCONTROLLER,
+    ECCategory.MISC,
+    ECCategory.MODULE,
+    ECCategory.PASSIVE,
+    ECCategory.REGULATOR,
+    ECCategory.REGULATOR_IC,
+    ECCategory.SENSOR,
+    ECCategory.TRANSISTOR,
+  ];
+  categoryFilter: ECCategory;
+  categoryControl = new FormControl(undefined);
 
   isLoadingResults = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -35,7 +55,7 @@ export class MTableComponent implements AfterViewInit {
 
   constructor(
     private database: DatabaseService,
-    private firestore: FirestoreService,
+    // private firestore: FirestoreService,
     private dialog: MatDialog,
     ) {
     console.log('MTableComponent');
@@ -52,13 +72,6 @@ export class MTableComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    this.paginator.firstPage();
   }
 
   editComponent(component, i) {
@@ -88,5 +101,19 @@ export class MTableComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  reorderComponents() {
+    console.log('reorderComponents');
+    this.database.reorderBy((c1, c2) => {
+      const catComp = c1.category.localeCompare(c2.category);
+      if (catComp == 0) {
+        return c1.name.localeCompare(c2.name);
+      }
+      return catComp;
+    }).subscribe({
+      next: () => console.log('reorder success'),
+      error: (e) => console.error('reorder error', e)
+    });;
   }
 }

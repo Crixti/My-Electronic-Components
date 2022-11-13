@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -c development",
+    "start": "ng serve -c production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "@angular/animations": "^14.2.8",
-    "@angular/cdk": "^14.2.6",
+    "@angular/cdk": "^14.2.7",
     "@angular/common": "^14.2.8",
     "@angular/compiler": "^14.2.8",
     "@angular/core": "^14.2.8",
     "@angular/fire": "^7.4.1",
     "@angular/forms": "^14.2.8",
-    "@angular/material": "^14.2.6",
+    "@angular/material": "^14.2.7",
     "@angular/platform-browser": "^14.2.8",
     "@angular/platform-browser-dynamic": "^14.2.8",
     "@angular/router": "^14.2.8",
@@ -26,23 +26,22 @@
     "firebase-tools": "^9.9.0 || ^10.0.0 || ^11.0.0",
     "rxfire": "^6.0.3",
     "rxjs": "^7.5.7",
-    "rxjs/operators": "*",
-    "tslib": "^2.4.0",
+    "tslib": "^2.4.1",
     "uuid": "^9.0.0",
     "xls-parser": "^3.1.0",
-    "zone.js": "^0.11.8"
+    "zone.js": "^0.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.0",
-    "@angular/cli": "~14.0.0",
-    "@angular/compiler-cli": "^14.0.0",
-    "@types/jasmine": "~4.0.0",
-    "jasmine-core": "~4.1.0",
-    "karma": "~6.3.0",
+    "@angular-devkit/build-angular": "^14.2.8",
+    "@angular/cli": "^14.2.8",
+    "@angular/compiler-cli": "^14.2.8",
+    "@types/jasmine": "~4.3.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.1",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.0.0",
-    "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.7.2"
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "typescript": "~4.8.4"
   }
 }

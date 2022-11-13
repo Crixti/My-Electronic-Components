@@ -46,8 +46,7 @@ export class DatabaseService {
         console.log('saveComponents2-user', user);
         if(user !== null) {
           return of(...components).pipe(
-            map(component => this.setComponentForUid(user.uid, component)),
-            mergeAll(),
+            mergeMap(component => this.setComponentForUid(user.uid, component)),
           );
         } else {
           return of();
@@ -69,6 +68,35 @@ export class DatabaseService {
       })
     );
     // set(ref(this.database, 'components/' + id), null);
+  }
+
+  /**
+   * Set the position of the components based on the given comparator.
+   */
+  reorderBy(comparator: (c1: ElectronicComponent, c2: ElectronicComponent) => number): Observable<void> {
+    return this.authService.userData.pipe(
+      first(),
+      mergeMap(user => {
+        console.log('getComponents-user', user);
+        if(user !== null) {
+          return this.getComponentsForUid(user.uid).pipe(
+            first(),
+            mergeMap(components => {
+              console.log('getComponents-components', components);
+              components = components.sort(comparator);
+              components.forEach((component, index) => {
+                component.position = index + 1;
+              });
+              return of(...components).pipe(
+                mergeMap(component => this.setComponentForUid(user.uid, component)),
+              );
+            })
+          );
+        } else {
+          return of();
+        }
+      }),
+    );
   }
 
   private getComponentsForUid(uid: string): Observable<ElectronicComponent[]> {
